@@ -38,6 +38,7 @@ import "C"
 
 import (
 	"fmt"
+	"github.com/tsg/gopacket"
 	"os"
 	"strconv"
 	"sync"
