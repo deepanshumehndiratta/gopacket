@@ -139,7 +139,7 @@ func (n NextResult) Error() string {
 // This function ignores snaplen and instead reads up to the length of the
 // passed-in slice.
 // The number of bytes read into data will be returned in ci.CaptureLength.
-func (r *Ring) ReadPacketDataTo(data []byte) (ci CaptureInfo, err error) {
+func (r *Ring) ReadPacketDataTo(data []byte) (ci gopacket.CaptureInfo, err error) {
 	// This tricky buf_ptr points to the start of our slice data, so pfring_recv
 	// will actually write directly into our Go slice.  Nice!
 	r.mu.Lock()
@@ -161,7 +161,7 @@ func (r *Ring) ReadPacketDataTo(data []byte) (ci CaptureInfo, err error) {
 // ReadPacketData returns the next packet read from the pcap handle, along with an error
 // code associated with that packet.  If the packet is read successfully, the
 // returned error is nil.
-func (r *Ring) ReadPacketData() (data []byte, ci CaptureInfo, err error) {
+func (r *Ring) ReadPacketData() (data []byte, ci gopacket.CaptureInfo, err error) {
 	data = make([]byte, r.snaplen)
 	ci, err = r.ReadPacketDataTo(data)
 	if err != nil {
